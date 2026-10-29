@@ -1,0 +1,32 @@
+{
+  "paths": {
+    "pic_root": "pic",
+    "article_src": "articles/src",
+    "article_published": "articles/published",
+    "build": ".build",
+    "publisher_skill": "",
+    "python": ""
+  },
+  "chrome": [
+    "C:/Program Files/Google/Chrome/Application/chrome.exe",
+    "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe",
+    "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe",
+    "C:/Program Files/Microsoft/Edge/Application/msedge.exe"
+  ],
+  "sizes": {
+    "cover": { "w": 900, "h": 383 },
+    "share": { "w": 1080, "h": 1080 },
+    "share54": { "w": 1200, "h": 960 },
+    "inline": { "w": 1080, "h": 720 }
+  },
+  "limits": {
+    "cover_max_kb": 800,
+    "inline_max_kb": 600,
+    "wechat_hard_max_kb": 2000
+  },
+  "brand": {
+    "name": "你的笔名",
+    "tagline": "一句话签名 / 副标题",
+    "series": "N 篇连载"
+  }
+}

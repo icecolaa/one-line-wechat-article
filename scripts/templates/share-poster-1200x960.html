@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+    --paper:#F4EAD5;
+    --paper-hi:#FFFDF7;
+    --navy:#0B2E6F;
+    --navy-deep:#08214F;
+    --sky:#68CAFB;
+    --yellow:#FFD22E;
+    --coral:#F2542D;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{width:1200px;height:960px;overflow:hidden;}
+  body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans SC",sans-serif;
+       background:var(--navy);-webkit-font-smoothing:antialiased;}
+  .canvas{position:relative;width:1200px;height:960px;overflow:hidden;
+    background:radial-gradient(1300px 760px at 82% 2%,#123C86 0%,var(--navy) 54%,var(--navy-deep) 100%);}
+  .canvas::before{
+    content:"";position:absolute;inset:0;
+    background-image:radial-gradient(rgba(104,202,251,.18) .9px,transparent .9px);
+    background-size:26px 26px;opacity:.4;
+  }
+
+  .route{position:absolute;left:0;top:0;z-index:0;}
+  .serial{position:absolute;right:0;top:0;z-index:0;font-size:300px;line-height:1;
+    font-weight:800;color:var(--sky);opacity:.065;letter-spacing:-10px;}
+
+  .head{position:absolute;left:76px;top:44px;z-index:4;width:760px;}
+  .badge{display:inline-block;background:var(--yellow);color:var(--navy);
+    font-weight:800;font-size:23px;letter-spacing:1px;padding:9px 20px 10px;
+    border-radius:999px;transform:rotate(-2deg);
+    box-shadow:0 5px 0 rgba(0,0,0,.18);}
+  .badge .dot{display:inline-block;width:8px;height:8px;border-radius:50%;
+    background:var(--coral);margin:0 9px 3px 1px;}
+
+  .eyebrow{margin-top:16px;font-size:23px;font-weight:700;color:var(--sky);letter-spacing:4px;}
+
+  h1{margin-top:8px;font-size:88px;line-height:1.12;font-weight:800;
+    color:#FFF9EC;letter-spacing:1px;text-shadow:0 4px 0 rgba(0,0,0,.16);}
+  h1 .ai{color:var(--yellow);font-style:normal;position:relative;display:inline-block;}
+  h1 .ai::after{content:"";position:absolute;left:2px;right:2px;bottom:6px;height:13px;
+    background:var(--coral);opacity:.92;border-radius:6px;z-index:-1;}
+
+  .sub{margin-top:14px;font-size:25px;font-weight:700;color:#CDEBFF;
+    letter-spacing:.5px;white-space:nowrap;}
+  .sub .slash{color:var(--yellow);font-weight:800;padding:0 4px;}
+
+  /* 三张卡片：竖版，对应三份清单 */
+  .card{position:absolute;background:var(--paper-hi);z-index:3;padding:10px;
+    box-shadow:0 22px 40px rgba(4,15,40,.44),0 3px 0 rgba(255,255,255,.16);}
+  .card img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center;}
+  .card .ph{overflow:hidden;width:100%;height:100%;}
+
+  .card.c1{left:88px;top:446px;width:248px;height:430px;transform:rotate(-6deg);}
+  .card.c1 .ph{height:410px;}
+  .card.c2{left:452px;top:418px;width:272px;height:478px;transform:rotate(-1deg);z-index:4;}
+  .card.c2 .ph{height:458px;}
+  .card.c3{left:848px;top:446px;width:248px;height:430px;transform:rotate(6deg);}
+  .card.c3 .ph{height:410px;}
+
+  .tape{position:absolute;z-index:6;height:30px;
+    background:repeating-linear-gradient(90deg,rgba(255,255,255,.24) 0 3px,transparent 3px 10px),
+               rgba(255,210,46,.66);
+    box-shadow:0 3px 6px rgba(4,15,40,.24);}
+  .tape.t1{left:146px;top:436px;width:96px;transform:rotate(-38deg);
+    background:repeating-linear-gradient(90deg,rgba(255,255,255,.26) 0 3px,transparent 3px 10px),
+               rgba(104,202,251,.58);}
+  .tape.t2{left:556px;top:412px;width:104px;transform:rotate(-3deg);}
+  .tape.t3{left:906px;top:436px;width:96px;transform:rotate(34deg);
+    background:repeating-linear-gradient(90deg,rgba(255,255,255,.26) 0 3px,transparent 3px 10px),
+               rgba(242,84,45,.50);}
+
+  .stamp{position:absolute;left:112px;top:792px;z-index:7;width:112px;height:112px;
+    border-radius:50%;border:3px dashed var(--coral);color:var(--coral);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    transform:rotate(-12deg);opacity:.92;background:rgba(255,253,247,.30);}
+  .stamp .big{font-size:29px;font-weight:800;letter-spacing:4px;line-height:1.05;}
+  .stamp .small{font-size:12px;font-weight:700;letter-spacing:2px;margin-top:4px;}
+
+  .star{position:absolute;left:1104px;top:352px;z-index:6;width:40px;height:40px;
+    transform:rotate(16deg);}
+
+  .grain{position:absolute;inset:0;z-index:9;pointer-events:none;opacity:.5;mix-blend-mode:soft-light;}
+</style>
+</head>
+<body>
+<div class="canvas">
+  <svg class="route" width="1200" height="960" viewBox="0 0 1200 960" fill="none">
+    <path d="M-20 760C130 700 210 620 330 540c160-108 250-220 420-286 118-46 220-108 450-230"
+          stroke="#68CAFB" stroke-opacity=".20" stroke-width="5"
+          stroke-linecap="round" stroke-dasharray="3 18"/>
+    <circle cx="330" cy="540" r="8" fill="#FFD22E" fill-opacity=".38"/>
+    <circle cx="750" cy="254" r="7" fill="#68CAFB" fill-opacity=".5"/>
+  </svg>
+
+  <div class="serial">{{SERIAL}}</div>
+
+  <div class="head">
+    <div class="badge"><span class="dot"></span>{{BADGE}}</div>
+    <div class="eyebrow">{{EYEBROW}}</div>
+    <h1>{{H1}}</h1>
+    <div class="sub">{{SUB}}</div>
+  </div>
+
+  <div class="card c1"><div class="ph"><img src="{{ART1}}" alt=""></div></div>
+  <div class="card c2"><div class="ph"><img src="{{ART2}}" alt=""></div></div>
+  <div class="card c3"><div class="ph"><img src="{{ART3}}" alt=""></div></div>
+
+  <div class="tape t1"></div>
+  <div class="tape t2"></div>
+  <div class="tape t3"></div>
+
+  <div class="stamp"><span class="big">{{STAMP}}</span><span class="small">{{YEAR}}</span></div>
+
+  <svg class="star" viewBox="0 0 48 48" fill="none">
+    <path d="M24 2l5.2 14.8L44 22l-14.8 5.2L24 42l-5.2-14.8L4 22l14.8-5.2z"
+          fill="#FFD22E" stroke="#0B2E6F" stroke-width="2.5" stroke-linejoin="round"/>
+  </svg>
+
+  <svg class="grain" width="1200" height="960">
+    <filter id="grain54"><feTurbulence type="fractalNoise" baseFrequency=".78" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+    <rect width="100%" height="100%" filter="url(#grain54)" opacity=".2"/>
+  </svg>
+</div>
+</body>
+</html>

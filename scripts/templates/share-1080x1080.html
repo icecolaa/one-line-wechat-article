@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+    --sky:#5CCCFE;
+    --navy:#0B2E6F;
+    --yellow:#FFD22E;
+    --coral:#F2542D;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{width:1080px;height:1080px;overflow:hidden;}
+  body{
+    font-family:"Microsoft YaHei","PingFang SC","Noto Sans SC",sans-serif;
+    background:var(--sky);
+    -webkit-font-smoothing:antialiased;
+  }
+  .canvas{position:relative;width:1080px;height:1080px;overflow:hidden;background:var(--sky);}
+
+  .art{position:absolute;inset:0;overflow:hidden;}
+  .art img{width:100%;height:100%;object-fit:cover;object-position:left center;display:block;
+           transform:scale(1.0);transform-origin:left center;}
+
+  .copy{position:absolute;left:624px;top:330px;width:424px;}
+
+  .badge{display:inline-block;background:var(--yellow);color:var(--navy);font-weight:800;font-size:26px;
+    padding:9px 20px 10px;border-radius:999px;transform:rotate(-3deg);
+    box-shadow:0 6px 0 rgba(11,46,111,.28);letter-spacing:1px;}
+  .badge .spark{font-size:22px;margin-right:6px;}
+
+  h1{margin-top:32px;font-size:64px;line-height:1.18;font-weight:800;color:var(--navy);
+     letter-spacing:1px;text-shadow:0 3px 0 rgba(255,255,255,.55);}
+  h1 .ai{color:var(--coral);}
+
+  .squiggle{display:block;margin:16px 0 0 4px;}
+
+  .foot{position:absolute;left:624px;bottom:118px;font-size:23px;font-weight:700;
+    color:#FFFFFF;letter-spacing:.5px;
+    background:var(--navy);padding:11px 20px 12px;border-radius:999px;
+    box-shadow:0 6px 16px rgba(11,46,111,.28);}
+  .foot .slash{color:var(--yellow);font-weight:800;}
+
+  .trail{position:absolute;right:96px;bottom:196px;}
+  .star{position:absolute;right:58px;top:64px;width:66px;height:66px;transform:rotate(14deg);}
+  .paw{position:absolute;left:64px;bottom:56px;width:46px;height:46px;transform:rotate(-12deg);opacity:.35;}
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="art"><img src="{{ART}}" alt=""></div>
+
+  <div class="copy">
+    <div class="badge"><span class="spark">✦</span>{{BADGE}}</div>
+    <h1>{{H1}}</h1>
+    <svg class="squiggle" width="250" height="18" viewBox="0 0 250 18" fill="none">
+      <path d="M4 12C36 4 66 4 96 10c30 6 60 6 90-1 20-5 38-5 56 1"
+            stroke="#FFD22E" stroke-width="9" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+
+  <svg class="trail" width="240" height="330" viewBox="0 0 240 330" fill="none">
+    <path d="M28 300C60 250 96 210 132 168c26-30 44-62 56-98"
+          stroke="#0B2E6F" stroke-opacity=".22" stroke-width="6"
+          stroke-linecap="round" stroke-dasharray="2 20"/>
+    <g fill="#0B2E6F" fill-opacity=".22">
+      <g transform="translate(22 268) rotate(-18) scale(.85)">
+        <ellipse cx="20" cy="26" rx="10" ry="8.5"/><ellipse cx="8" cy="15" rx="4.2" ry="5.4"/>
+        <ellipse cx="17" cy="10.5" rx="4.2" ry="5.6"/><ellipse cx="27" cy="11" rx="4.2" ry="5.6"/>
+        <ellipse cx="34" cy="17" rx="3.8" ry="5"/>
+      </g>
+      <g transform="translate(104 168) rotate(-12) scale(.8)">
+        <ellipse cx="20" cy="26" rx="10" ry="8.5"/><ellipse cx="8" cy="15" rx="4.2" ry="5.4"/>
+        <ellipse cx="17" cy="10.5" rx="4.2" ry="5.6"/><ellipse cx="27" cy="11" rx="4.2" ry="5.6"/>
+        <ellipse cx="34" cy="17" rx="3.8" ry="5"/>
+      </g>
+      <g transform="translate(168 62) rotate(-6) scale(.75)">
+        <ellipse cx="20" cy="26" rx="10" ry="8.5"/><ellipse cx="8" cy="15" rx="4.2" ry="5.4"/>
+        <ellipse cx="17" cy="10.5" rx="4.2" ry="5.6"/><ellipse cx="27" cy="11" rx="4.2" ry="5.6"/>
+        <ellipse cx="34" cy="17" rx="3.8" ry="5"/>
+      </g>
+    </g>
+  </svg>
+
+  <div class="foot">{{FOOT}}</div>
+
+  <svg class="star" viewBox="0 0 48 48" fill="none">
+    <path d="M24 2l5.2 14.8L44 22l-14.8 5.2L24 42l-5.2-14.8L4 22l14.8-5.2z"
+          fill="#FFD22E" stroke="#0B2E6F" stroke-width="2.5" stroke-linejoin="round"/>
+  </svg>
+
+  <svg class="paw" viewBox="0 0 40 40" fill="#0B2E6F">
+    <ellipse cx="20" cy="26" rx="10" ry="8.5"/>
+    <ellipse cx="8" cy="15" rx="4.2" ry="5.4"/>
+    <ellipse cx="17" cy="10.5" rx="4.2" ry="5.6"/>
+    <ellipse cx="27" cy="11" rx="4.2" ry="5.6"/>
+    <ellipse cx="34" cy="17" rx="3.8" ry="5"/>
+  </svg>
+</div>
+</body>
+</html>

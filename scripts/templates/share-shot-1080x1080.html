@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+    --sky:#68CAFB;
+    --navy:#0B2E6F;
+    --yellow:#FFD22E;
+    --coral:#F2542D;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{width:1080px;height:1080px;overflow:hidden;}
+  body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans SC",sans-serif;
+       background:#DCEFFD;-webkit-font-smoothing:antialiased;}
+  .canvas{position:relative;width:1080px;height:1080px;overflow:hidden;
+    background:radial-gradient(120% 90% at 18% 6%, #F4FBFF 0%, #D8EEFD 44%, #BCE2FA 100%);}
+
+  .grid{position:absolute;inset:0;
+    background-image:linear-gradient(rgba(11,46,111,.05) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(11,46,111,.05) 1px,transparent 1px);
+    background-size:40px 40px;}
+
+  .copy{position:absolute;left:76px;top:74px;width:660px;z-index:4;}
+  .badge{display:inline-block;background:var(--yellow);color:var(--navy);font-weight:800;font-size:26px;
+    padding:9px 20px 10px;border-radius:999px;transform:rotate(-2deg);
+    box-shadow:0 6px 0 rgba(11,46,111,.22);letter-spacing:.8px;}
+  h1{margin-top:24px;font-size:84px;line-height:1.1;font-weight:800;color:var(--navy);
+     letter-spacing:3px;text-shadow:0 4px 0 rgba(255,255,255,.72);}
+  .squiggle{display:block;margin:14px 0 12px 4px;}
+  .sub{font-size:30px;line-height:1.4;font-weight:700;color:#15458F;letter-spacing:1px;white-space:nowrap;}
+  .sub .slash{color:var(--coral);font-weight:800;padding:0 4px;}
+
+  .foot{display:inline-block;margin-top:18px;font-size:24px;font-weight:700;
+    color:#fff;background:var(--navy);padding:12px 22px 13px;border-radius:999px;
+    box-shadow:0 8px 20px rgba(11,46,111,.3);letter-spacing:.6px;}
+  .foot .slash{color:var(--yellow);font-weight:800;}
+
+  /* 三台手机：一台对应一份清单 */
+  .phones{position:absolute;left:0;right:0;bottom:0;height:540px;z-index:2;}
+  .phone{position:absolute;bottom:-160px;border-radius:26px;overflow:hidden;background:#fff;
+    box-shadow:0 18px 44px rgba(11,46,111,.3), 0 0 0 6px #fff, 0 0 0 7px rgba(11,46,111,.10);}
+  .phone img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;}
+  .phone.p1{width:300px;height:640px;left:58px;transform:rotate(-7deg);}
+  .phone.p2{width:330px;height:700px;left:376px;transform:rotate(-1deg);z-index:3;}
+  .phone.p3{width:300px;height:640px;left:730px;transform:rotate(7deg);}
+
+  .star{position:absolute;right:62px;top:74px;width:62px;height:62px;transform:rotate(14deg);z-index:6;}
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="grid"></div>
+
+  <div class="copy">
+    <div class="badge">{{BADGE}}</div>
+    <h1>{{H1}}</h1>
+    <svg class="squiggle" width="300" height="18" viewBox="0 0 300 18" fill="none">
+      <path d="M4 12C44 4 82 4 120 10c38 6 76 6 114-1 26-5 48-5 62 1"
+            stroke="#FFD22E" stroke-width="9" stroke-linecap="round"/>
+    </svg>
+    <p class="sub">{{SUB}}</p>
+    <div><span class="foot">{{FOOT}}</span></div>
+  </div>
+
+  <div class="phones">
+    <div class="phone p1"><img src="{{ART1}}" alt=""></div>
+    <div class="phone p2"><img src="{{ART2}}" alt=""></div>
+    <div class="phone p3"><img src="{{ART3}}" alt=""></div>
+  </div>
+
+  <svg class="star" viewBox="0 0 48 48" fill="none">
+    <path d="M24 2l5.2 14.8L44 22l-14.8 5.2L24 42l-5.2-14.8L4 22l14.8-5.2z"
+          fill="#FFD22E" stroke="#0B2E6F" stroke-width="2.5" stroke-linejoin="round"/>
+  </svg>
+</div>
+</body>
+</html>

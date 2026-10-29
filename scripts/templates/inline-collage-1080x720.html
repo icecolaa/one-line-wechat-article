@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+    --paper:#F4EAD5;
+    --paper-hi:#FFFDF7;
+    --navy:#0B2E6F;
+    --navy-deep:#08214F;
+    --sky:#68CAFB;
+    --yellow:#FFD22E;
+    --coral:#F2542D;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{width:1080px;height:720px;overflow:hidden;}
+  body{
+    font-family:"Microsoft YaHei","PingFang SC","Noto Sans SC",sans-serif;
+    background:var(--paper);
+    -webkit-font-smoothing:antialiased;
+  }
+  .canvas{position:relative;width:1080px;height:720px;overflow:hidden;background:var(--paper);}
+  .canvas::before{
+    content:"";position:absolute;inset:0;z-index:0;
+    background-image:radial-gradient(rgba(11,46,111,.10) .8px,transparent .8px);
+    background-size:20px 20px;opacity:.5;
+  }
+
+  .route{position:absolute;left:0;top:0;z-index:1;}
+
+  .panel{position:absolute;right:0;top:0;z-index:2;
+         filter:drop-shadow(-7px 0 12px rgba(11,46,111,.20));}
+
+  .serial{position:absolute;right:10px;bottom:-42px;z-index:3;
+    font-size:238px;line-height:1;font-weight:800;color:var(--sky);opacity:.065;
+    letter-spacing:-10px;}
+
+  .card{position:absolute;background:var(--paper-hi);z-index:3;
+    box-shadow:0 16px 32px rgba(11,46,111,.22),0 2px 0 rgba(11,46,111,.06);}
+  .card img{display:block;object-fit:cover;object-position:center;}
+
+  .card.photo{left:240px;top:26px;width:330px;padding:12px;transform:rotate(5deg);z-index:3;}
+  .card.photo img{width:306px;height:214px;object-position:center 62%;}
+
+  .card.dog{left:34px;top:148px;width:360px;padding:16px;transform:rotate(-5deg);z-index:4;}
+  .card.dog img{width:328px;height:328px;}
+
+  .card.robot{left:382px;top:426px;width:200px;padding:12px;transform:rotate(7deg);z-index:5;}
+  .card.robot .ph{width:176px;height:176px;overflow:hidden;}
+  .card.robot img{width:100%;height:100%;transform:scale(1.24);}
+
+  .tape{position:absolute;z-index:6;height:30px;
+    background:repeating-linear-gradient(90deg,rgba(255,255,255,.24) 0 3px,transparent 3px 10px),
+               rgba(255,210,46,.62);
+    box-shadow:0 3px 6px rgba(11,46,111,.12);}
+  .tape.photo{left:330px;top:16px;width:112px;transform:rotate(-4deg);}
+  .tape.dog{left:46px;top:132px;width:96px;transform:rotate(-40deg);
+    background:repeating-linear-gradient(90deg,rgba(255,255,255,.26) 0 3px,transparent 3px 10px),
+               rgba(104,202,251,.56);}
+  .tape.robot{left:500px;top:602px;width:88px;transform:rotate(22deg);
+    background:repeating-linear-gradient(90deg,rgba(255,255,255,.26) 0 3px,transparent 3px 10px),
+               rgba(242,84,45,.46);}
+
+  .stamp{position:absolute;left:226px;top:500px;z-index:6;width:108px;height:108px;
+    border-radius:50%;border:3px dashed var(--coral);color:var(--coral);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    transform:rotate(-12deg);opacity:.9;background:rgba(255,253,247,.28);}
+  .stamp .big{font-size:28px;font-weight:800;letter-spacing:4px;line-height:1.05;}
+  .stamp .small{font-size:11px;font-weight:700;letter-spacing:2px;margin-top:4px;}
+
+  .star{position:absolute;left:560px;top:34px;z-index:7;width:34px;height:34px;
+    transform:rotate(14deg);}
+
+  .copy{position:absolute;left:650px;top:48px;width:380px;z-index:8;}
+
+  .badge{display:inline-block;background:var(--yellow);color:var(--navy);
+    font-weight:800;font-size:19px;letter-spacing:.6px;padding:8px 16px 9px;
+    border-radius:999px;transform:rotate(-2deg);
+    box-shadow:0 4px 0 rgba(0,0,0,.16);}
+  .badge .dot{display:inline-block;width:7px;height:7px;border-radius:50%;
+    background:var(--coral);margin:0 8px 2px 1px;}
+
+  .eyebrow{margin-top:20px;font-size:18px;font-weight:700;color:var(--sky);
+    letter-spacing:3px;}
+
+  h1{margin-top:10px;font-size:62px;line-height:1.12;font-weight:800;
+    color:#FFF9EC;letter-spacing:1px;text-shadow:0 4px 0 rgba(0,0,0,.14);}
+  h1 .hl{color:var(--yellow);font-style:normal;position:relative;display:inline-block;}
+  h1 .hl::after{content:"";position:absolute;left:2px;right:2px;bottom:4px;height:9px;
+    background:var(--coral);opacity:.92;border-radius:5px;z-index:-1;}
+
+  .squiggle{display:block;margin:18px 0 0 2px;}
+
+  .sub{margin-top:18px;font-size:19px;font-weight:700;color:#CDEBFF;
+    letter-spacing:.4px;white-space:nowrap;}
+  .sub .slash{color:var(--yellow);font-weight:800;padding:0 3px;}
+
+  .brand{position:absolute;left:652px;bottom:32px;z-index:8;
+    display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.62);
+    font-size:15px;font-weight:700;letter-spacing:1.2px;}
+  .brand svg{width:19px;height:19px;}
+
+  .grain{position:absolute;inset:0;z-index:9;pointer-events:none;opacity:.55;mix-blend-mode:multiply;}
+</style>
+</head>
+<body>
+<div class="canvas">
+  <svg class="route" width="620" height="720" viewBox="0 0 620 720" fill="none">
+    <path d="M30 680C120 620 160 570 230 520C330 450 360 360 440 280C500 220 530 150 570 60"
+          stroke="#0B2E6F" stroke-opacity=".22" stroke-width="3.5"
+          stroke-linecap="round" stroke-dasharray="2 12"/>
+    <circle cx="30" cy="680" r="7" fill="#F2542D" fill-opacity=".72"/>
+    <circle cx="230" cy="520" r="5.5" fill="#0B2E6F" fill-opacity=".38"/>
+    <circle cx="440" cy="280" r="5.5" fill="#0B2E6F" fill-opacity=".38"/>
+    <circle cx="560" cy="72" r="8" fill="#FFD22E" stroke="#0B2E6F" stroke-width="2.2" stroke-opacity=".7"/>
+  </svg>
+
+  <svg class="panel" width="500" height="720" viewBox="0 0 500 720" preserveAspectRatio="none">
+    <path d="M44 0C30 34 52 64 36 100C52 136 30 170 46 206C30 242 54 276 38 312C54 348 30 382 46 418C30 454 54 488 38 524C54 560 30 594 46 630C30 666 54 700 40 720L500 720L500 0Z"
+          fill="#0B2E6F"/>
+    <path d="M44 0C30 34 52 64 36 100C52 136 30 170 46 206C30 242 54 276 38 312C54 348 30 382 46 418C30 454 54 488 38 524C54 560 30 594 46 630C30 666 54 700 40 720"
+          stroke="#F4EAD5" stroke-opacity=".56" stroke-width="4" fill="none"/>
+  </svg>
+
+  <div class="serial">{{EP}}</div>
+
+  <div class="card photo"><img src="{{ART_PHOTO}}" alt=""></div>
+  <div class="card dog"><img src="{{ART_DOG}}" alt=""></div>
+  <div class="card robot"><div class="ph"><img src="{{ART_ROBOT}}" alt=""></div></div>
+
+  <div class="tape photo"></div>
+  <div class="tape dog"></div>
+  <div class="tape robot"></div>
+
+  <div class="stamp"><span class="big">{{STAMP}}</span><span class="small">{{YEAR}}</span></div>
+
+  <svg class="star" viewBox="0 0 48 48" fill="none">
+    <path d="M24 2l5.2 14.8L44 22l-14.8 5.2L24 42l-5.2-14.8L4 22l14.8-5.2z"
+          fill="#FFD22E" stroke="#0B2E6F" stroke-width="2.5" stroke-linejoin="round"/>
+  </svg>
+
+  <div class="copy">
+    <div class="badge"><span class="dot"></span>{{BADGE}}</div>
+    <div class="eyebrow">{{EYEBROW}}</div>
+    <h1>{{H1}}</h1>
+    <svg class="squiggle" width="240" height="16" viewBox="0 0 240 16" fill="none">
+      <path d="M4 11C34 4 62 4 90 10c28 6 56 6 84-1 18-4 34-4 58 1"
+            stroke="#FFD22E" stroke-width="7" stroke-linecap="round"/>
+    </svg>
+    <div class="sub">{{SUB}}</div>
+  </div>
+
+  <div class="brand">
+    <svg viewBox="0 0 40 40" fill="#FFFFFF" opacity=".8">
+      <ellipse cx="20" cy="26" rx="9" ry="7.5"/>
+      <ellipse cx="9" cy="16" rx="3.8" ry="4.9"/>
+      <ellipse cx="17" cy="11.5" rx="3.8" ry="5.1"/>
+      <ellipse cx="26" cy="12" rx="3.8" ry="5.1"/>
+      <ellipse cx="33" cy="17.5" rx="3.4" ry="4.5"/>
+    </svg>
+    {{BRAND}} · {{YEAR}}
+  </div>
+
+  <svg class="grain" width="1080" height="720">
+    <filter id="inlineGrain"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+    <rect width="100%" height="100%" filter="url(#inlineGrain)" opacity=".17"/>
+  </svg>
+</div>
+</body>
+</html>
